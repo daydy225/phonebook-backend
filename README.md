@@ -42,3 +42,7 @@ Configuration of frontend to get all persons number from the phonebook backend.
 ## step 10
 
 Deploy the backend to the internet. the link is https://phonebook-backend-225.herokuapp.com/
+
+## step 11
+
+Generate a production build of your frontend, and add it to the internet application
