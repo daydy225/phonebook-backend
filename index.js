@@ -37,7 +37,7 @@ app.use(cors())
 app.use(express.json())
 
 app.get('/', (req, res) => {
-  res.send('hello world')
+  res.send('<h3>hello world</h3>')
 })
 
 app.get('/api/persons', (req, res) => {
