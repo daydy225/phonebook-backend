@@ -46,3 +46,8 @@ Deploy the backend to the internet. the link is https://phonebook-backend-225.he
 ## step 11
 
 Generate a production build of your frontend, and add it to the internet application
+
+## step 12:Command-line database
+
+Create a cloud-based MongoDB database for the phonebook application with MongoDB Atlas.
+Create a mongo.js file in the project directory, that can be used for adding entries to the phonebook, and for listing all of the existing entries in the phonebook.
