@@ -51,3 +51,11 @@ Generate a production build of your frontend, and add it to the internet applica
 
 Create a cloud-based MongoDB database for the phonebook application with MongoDB Atlas.
 Create a mongo.js file in the project directory, that can be used for adding entries to the phonebook, and for listing all of the existing entries in the phonebook.
+
+## step 13: phonebook database step 1
+
+Change the fetching of all phonebook entries so that the data is fetched from the database.
+
+## step 14: phonebook database step 2
+
+Change the backend so that new numbers are saved to the database.

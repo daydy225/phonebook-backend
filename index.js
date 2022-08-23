@@ -60,16 +60,6 @@ app.post('/api/persons/', (req, res) => {
     })
   }
 
-  // Person.find({}).then(persons => {
-  //   persons.forEach(person => {
-  //     if (person.name === body.name) {
-  //       res.status(400).json({
-  //         error: 'name must be unique',
-  //       })
-  //     }
-  //   })
-  // })
-
   const newPerson = new Person({
     name: body.name,
     number: body.number,
