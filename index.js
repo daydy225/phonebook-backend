@@ -18,29 +18,25 @@ app.get('/', (req, res) => {
   res.send('<h3>hello world</h3>')
 })
 
-app.get('/api/persons', (req, res, next) => {
-  Person.find({})
-    .then(persons => {
-      res.json(persons)
-    })
-    .catch(error => next(error))
+app.get('/api/persons', (req, res) => {
+  Person.find({}).then(persons => {
+    res.json(persons)
+  })
 })
 
-app.get('/info', (req, res, next) => {
-  Person.find({})
-    .then(persons => {
-      const info = {
-        entries: persons.length,
-        date: new Date(),
-      }
-      res.send(`
+app.get('/info', (req, res) => {
+  Person.find({}).then(persons => {
+    const info = {
+      entries: persons.length,
+      date: new Date(),
+    }
+    res.send(`
     <div>
     <p>Phonebook has info for ${info.entries} people</p>
     <p>${info.date.toGMTString()}</p>
     </div>
     `)
-    })
-    .catch(error => next(error))
+  })
 })
 
 app.get('/api/persons/:id', (req, res, next) => {
@@ -65,12 +61,9 @@ app.post('/api/persons/', (req, res, next) => {
     number: body.number,
   })
 
-  newPerson
-    .save()
-    .then(personAdded => {
-      res.json(personAdded)
-    })
-    .catch(error => next(error))
+  newPerson.save().then(personAdded => {
+    res.json(personAdded)
+  })
 })
 
 app.put('/api/persons/:id', (req, res, next) => {
