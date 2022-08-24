@@ -4,15 +4,16 @@ const cors = require('cors')
 const app = express()
 const morgan = require('morgan')
 const Person = require('./models/person')
+const { response } = require('express')
 
 morgan.token('body', req => JSON.stringify(req.body))
 
 app.use(
   morgan(':method :url :status :res[content-length] - :response-time ms :body')
 )
-app.use(cors())
 app.use(express.static('build'))
 app.use(express.json())
+app.use(cors())
 
 app.get('/', (req, res) => {
   res.send('<h3>hello world</h3>')
@@ -59,16 +60,34 @@ app.post('/api/persons/', (req, res) => {
     number: body.number,
   })
 
-  newPerson.save().then(personCreated => {
-    res.json(personCreated)
+  newPerson.save().then(personAdded => {
+    res.json(personAdded)
   })
 })
 
 app.delete('/api/persons/:id', (req, res) => {
-  Person.findByIdAndRemove(req.params.id).then(result => {
-    res.status(204).end()
-  })
+  Person.findByIdAndRemove(req.params.id)
+    .then(result => {
+      res.status(204).end()
+    })
+    .catch(error => next(error))
 })
+
+const unknownEndPoint = (req, res) => {
+  res.status(404).send({ error: 'unknown endpoint' })
+}
+app.use(unknownEndPoint)
+
+const errorHandler = (error, req, res, next) => {
+  console.log(error.message)
+
+  if (error.name === 'CastError') {
+    return res.status(400).send({ error: 'malformatted id' })
+  }
+  next(error)
+}
+
+app.use(errorHandler)
 
 const PORT = process.env.PORT
 

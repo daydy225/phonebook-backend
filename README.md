@@ -60,6 +60,10 @@ Change the fetching of all phonebook entries so that the data is fetched from th
 
 Change the backend so that new numbers are saved to the database.
 
-## step 15: phonebook database, step3
+## step 15: phonebook database, step 3
 
 Change the backend so that deleting phonebook entries is reflected in the database.
+
+## step 16: phonebook database, step 4
+
+Move the error handling of the application to a new error handler middleware.
