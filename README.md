@@ -67,3 +67,7 @@ Change the backend so that deleting phonebook entries is reflected in the databa
 ## step 16: phonebook database, step 4
 
 Move the error handling of the application to a new error handler middleware.
+
+## step 17: phonebook database, step 5
+
+Modify the backend to support HTTP PUT request, If the user tries to create a new phonebook entry for a person whose name is already in the phonebook, the frontend will try to update the phone number of the existing person.
