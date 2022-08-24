@@ -4,7 +4,6 @@ const cors = require('cors')
 const app = express()
 const morgan = require('morgan')
 const Person = require('./models/person')
-const { response } = require('express')
 
 morgan.token('body', req => JSON.stringify(req.body))
 
@@ -19,34 +18,40 @@ app.get('/', (req, res) => {
   res.send('<h3>hello world</h3>')
 })
 
-app.get('/api/persons', (req, res) => {
-  Person.find({}).then(persons => {
-    res.json(persons)
-  })
+app.get('/api/persons', (req, res, next) => {
+  Person.find({})
+    .then(persons => {
+      res.json(persons)
+    })
+    .catch(error => next(error))
 })
 
-app.get('/info', (req, res) => {
-  Person.find({}).then(persons => {
-    const info = {
-      entries: persons.length,
-      date: new Date(),
-    }
-    res.send(`
+app.get('/info', (req, res, next) => {
+  Person.find({})
+    .then(persons => {
+      const info = {
+        entries: persons.length,
+        date: new Date(),
+      }
+      res.send(`
     <div>
     <p>Phonebook has info for ${info.entries} people</p>
     <p>${info.date.toGMTString()}</p>
     </div>
     `)
-  })
+    })
+    .catch(error => next(error))
 })
 
-app.get('/api/persons/:id', (req, res) => {
-  Person.findById(req.params.id).then(person => {
-    res.json(person)
-  })
+app.get('/api/persons/:id', (req, res, next) => {
+  Person.findById(req.params.id)
+    .then(person => {
+      res.json(person)
+    })
+    .catch(error => next(error))
 })
 
-app.post('/api/persons/', (req, res) => {
+app.post('/api/persons/', (req, res, next) => {
   const body = req.body
 
   if (body.name === undefined || body.number === undefined) {
@@ -60,9 +65,12 @@ app.post('/api/persons/', (req, res) => {
     number: body.number,
   })
 
-  newPerson.save().then(personAdded => {
-    res.json(personAdded)
-  })
+  newPerson
+    .save()
+    .then(personAdded => {
+      res.json(personAdded)
+    })
+    .catch(error => next(error))
 })
 
 app.put('/api/persons/:id', (req, res, next) => {
