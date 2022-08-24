@@ -59,3 +59,7 @@ Change the fetching of all phonebook entries so that the data is fetched from th
 ## step 14: phonebook database step 2
 
 Change the backend so that new numbers are saved to the database.
+
+## step 15: phonebook database, step3
+
+Change the backend so that deleting phonebook entries is reflected in the database.
