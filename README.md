@@ -75,3 +75,7 @@ Modify the backend to support HTTP PUT request, If the user tries to create a ne
 ## step 18: phonebook database, step 6
 
 pdate the handling of the api/persons/:id and info routes to use the database.
+
+## step 19: phonebook database, step 7
+
+Expand the validation so that the name stored in the database has to be at least three characters long.
