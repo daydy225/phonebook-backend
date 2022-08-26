@@ -96,3 +96,7 @@ HTTP POST request tries to add a name that is already in the phonebook, the serv
 ## step 21 : deploying the database backend to production
 
 Generate a new "full stack" version of the application by creating a new production build of the frontend
+
+## step 22 : eslint configuration
+
+Add ESlint to your application and fix all the warnings.

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const process = require('process')
 
 if (process.argv.length < 3) {
   console.log(
@@ -9,7 +10,7 @@ if (process.argv.length < 3) {
 
 const password = process.argv[2]
 
-url = `mongodb+srv://daydydev:${password}@cluster0.omubslw.mongodb.net/phonebook?retryWrites=true&w=majority`
+const url = `mongodb+srv://daydydev:${password}@cluster0.omubslw.mongodb.net/phonebook?retryWrites=true&w=majority`
 
 const personSchema = mongoose.Schema({
   name: String,
@@ -30,7 +31,7 @@ mongoose.connect(url).then(() => {
 
     person
       .save()
-      .then(savedPerson => {
+      .then(() => {
         console.log(`added ${newName} ${newNumber} to phonebook`)
         return mongoose.connection.close()
       })
