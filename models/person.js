@@ -3,32 +3,32 @@ const process = require('process')
 
 const url = process.env.MONGO_URI
 
+console.log('connecting to', url)
 mongoose
   .connect(url)
   .then(() => {
     console.log('connected to MongoDB')
   })
-  .catch(error => console.log('error connecting to MongoD:', error.message))
+  .catch(error => {
+    console.log('error connecting to MongoDB:', error.message)
+  })
 
-const personSchema = mongoose.Schema({
+const personSchema = new mongoose.Schema({
   name: {
     type: String,
-    minLength: 3,
+    minlength: 3,
     required: true,
-    unique: true,
   },
   number: {
     type: String,
+    minlength: 8,
+    required: true,
     validate: {
-      validator: value => {
-        const re = /^(\d{2})-(\d{7,})$|^(\d{3})-(\d{7,})$/g
-
-        return value.match(re)
+      validator: n => {
+        return /\d{2}-\d+/.test(n) || /\d{3}-\d+/.test(n)
       },
-      message: props => `${props.value} is not a valid number`,
+      message: props => `${props.value} is not a valid phone number`,
     },
-    required: [true, 'Number is required'],
-    minLength: 8,
   },
 })
 
@@ -40,6 +40,4 @@ personSchema.set('toJSON', {
   },
 })
 
-const Person = mongoose.model('Persons', personSchema)
-
-module.exports = Person
+module.exports = mongoose.model('Person', personSchema)

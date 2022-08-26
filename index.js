@@ -26,17 +26,13 @@ app.get('/api/persons', (req, res) => {
 })
 
 app.get('/info', (req, res) => {
-  Person.find({}).then(persons => {
-    const info = {
-      entries: persons.length,
-      date: new Date(),
-    }
-    res.send(`
-    <div>
-    <p>Phonebook has info for ${info.entries} people</p>
-    <p>${info.date.toGMTString()}</p>
-    </div>
-    `)
+  Person.count().then(person_count => {
+    const body = `
+    <p>Phonebook has info for ${person_count} people</p>
+    <p>${new Date()}</p
+    `
+
+    res.send(body)
   })
 })
 
@@ -106,16 +102,13 @@ const errorHandler = (error, req, res, next) => {
   if (error.name === 'ValidationError') {
     return res.status(400).json({ error: error.message })
   }
-  if (error.name === 'MongoServerError') {
-    return res.status(400).json({ error: error.message })
-  }
 
   next(error)
 }
 
 app.use(errorHandler)
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3001
 
 app.listen(PORT, () => {
   console.log(`Server is running on ${PORT}`)
