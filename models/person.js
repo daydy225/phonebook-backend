@@ -14,9 +14,20 @@ const personSchema = mongoose.Schema({
     type: String,
     minLength: 3,
     required: true,
+    unique: true,
   },
   number: {
     type: String,
+    validate: {
+      validator: value => {
+        const re = /^(\d{2})-(\d{7,})$|^(\d{3})-(\d{7,})$/g
+
+        return value.match(re)
+      },
+      message: props => `${props.value} is not a valid number`,
+    },
+    required: [true, 'Number is required'],
+    minLength: 8,
   },
 })
 
